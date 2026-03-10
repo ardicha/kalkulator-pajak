@@ -1,0 +1,259 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #495cb0 0%, #155e83 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+}
+
+.container {
+    width: 1300px;
+    max-width: 100%;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    overflow: hidden;
+}
+
+/* Header */
+.header {
+    background: #2c3e50;
+    color: white;
+    padding: 15px 25px;
+    text-align: center;
+}
+
+.header h1 {
+    font-size: 1.8em;
+    margin-bottom: 3px;
+}
+
+.header p {
+    font-size: 0.85em;
+    opacity: 0.8;
+}
+
+/* Main Content - 2 Kolom */
+.main-content {
+    display: flex;
+    padding: 20px;
+    gap: 25px;
+    min-height: 500px;
+}
+
+/* Kolom Kiri (40%) */
+.left-column {
+    flex: 5;
+    background: #f8f9fa;
+    border-radius: 15px;
+    padding: 20px;
+    border: 1px solid #e9ecef;
+}
+
+/* Kolom Kanan (60%) */
+.right-column {
+    flex: 5;
+    background: #f8f9fa;
+    border-radius: 15px;
+    padding: 20px;
+    border: 1px solid #e9ecef;
+}
+
+/* Section */
+.section {
+    margin-bottom: 20px;
+}
+
+.section h2 {
+    color: #2c3e50;
+    font-size: 1.1em;
+    margin-bottom: 12px;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #2c3e50;
+}
+
+/* Form */
+.form-group {
+    margin-bottom: 12px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 4px;
+    color: #495057;
+    font-size: 0.85em;
+    font-weight: 500;
+}
+
+.required {
+    color: #dc3545;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    font-size: 0.9em;
+    background: white;
+}
+
+.input-group {
+    display: flex;
+}
+
+.input-group-text {
+    background: #e9ecef;
+    border: 1px solid #dee2e6;
+    border-right: none;
+    padding: 8px 12px;
+    border-radius: 6px 0 0 6px;
+    font-size: 0.9em;
+    color: #495057;
+}
+
+.input-group input {
+    border-radius: 0 6px 6px 0;
+}
+
+/* Tombol */
+.btn {
+    width: 75%;
+    background: #2c3e50;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+.btn-reset {
+    width: 22%;
+    background: #b50101;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+.btn:hover {
+    background: #1a252f;
+}
+
+.btn-reset:hover {
+    background: #7b020e;
+}
+
+/* Hasil */
+.right-column h2 {
+    color: #2c3e50;
+    font-size: 1.2em;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #2c3e50;
+}
+
+.result-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.result-card {
+    flex: 1;
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    border: 1px solid #e9ecef;
+}
+
+.result-label {
+    color: #6c757d;
+    font-size: 0.75em;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.result-value {
+    font-size: 2em;
+    font-weight: 700;
+    color: #2c3e50;
+    line-height: 1.2;
+}
+
+.result-desc {
+    color: #6c757d;
+    font-size: 0.75em;
+}
+
+/* Detail Card */
+.detail-card {
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    border: 1px solid #e9ecef;
+}
+
+.detail-card h3 {
+    color: #2c3e50;
+    font-size: 0.95em;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    font-size: 0.9em;
+}
+
+.detail-item .negative {
+    color: #dc3545;
+}
+
+.detail-item .thp {
+    color: #2c3e50;
+    font-weight: 700;
+}
+
+.detail-item.total {
+    margin-top: 5px;
+    padding-top: 8px;
+    border-top: 2px solid #2c3e50;
+    font-weight: 600;
+}
+
+/* Footer Note */
+.footer-note {
+    margin-top: 12px;
+    text-align: center;
+    color: #6c757d;
+    font-size: 0.75em;
+    font-style: italic;
+}
+
+/* Responsive untuk layar kecil */
+@media (max-width: 900px) {
+    .main-content {
+        flex-direction: column;
+    }
+}

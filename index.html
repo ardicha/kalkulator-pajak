@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Kalkulator PPh21 TER</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Kalkulator Pajak PPh21 TER</h1>
+            <p>Tarif Efektif Rata-rata Pajak Penghasilan Pasal 21</p>
+        </div>
+
+        <div class="main-content">
+            <div class="left-column">
+                <div class="section">
+                    <h2>Data Pegawai</h2>
+                    <div class="form-group">
+                        <label class="required">NPWP / NIK</label>
+                        <input type="number" id="npwp" placeholder="123456789xxx">
+                    </div>
+                    <div class="form-group">
+                        <label class="required">NIP</label>
+                        <input type="number" id="nip" placeholder="123456789xxx">
+                    </div>
+                    <div class="form-group">
+                        <label class="required">Nama Lengkap</label>
+                        <input type="text" id="nama" placeholder="Ardicha Triana Dewi">
+                    </div>
+                    <div class="form-group">
+                        <label class="required">Status PTKP</label>
+                        <select id="ptkp">
+                            <option value="TK0">TK/0 - Tidak Kawin 0 Tanggungan</option>
+                            <option value="TK1" selected>TK/1 - Tidak Kawin 1 Tanggungan</option>
+                            <option value="TK2">TK/2 - Tidak Kawin 2 Tanggungan</option>
+                            <option value="TK3">TK/3 - Tidak Kawin 3 Tanggungan</option>
+                            <option value="K0">K/0 - Kawin 0 Tanggungan</option>
+                            <option value="K1">K/1 - Kawin 1 Tanggungan</option>
+                            <option value="K2">K/2 - Kawin 2 Tanggungan</option>
+                            <option value="K3">K/3 - Kawin 3 Tanggungan</option>
+
+                        </select>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>Data Penghasilan</h2>
+                    <div class="form-group">
+                        <label class="required">Gaji Pokok / Bulan</label>
+                        <div class="input-group">
+                            <span class="input-group-text">Rp</span>
+                            <input type="number" id="gaji">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Penghasilan Lain / Bulan</label>
+                        <div class="input-group">
+                            <span class="input-group-text">Rp</span>
+                            <input type="number" id="penghasilanLain">
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn" onclick="hitungPajak()">Hitung Pajak</button>
+                <button class="btn-reset" onclick="reset()">Reset</button>
+            </div>
+
+            <div class="right-column">
+                <h2>Hasil Perhitungan</h2>
+
+                <div class="result-row">
+                    <div class="result-card">
+                        <div class="result-label">TER Level</div>
+                        <div class="result-value" id="terLevel"></div>
+                        <div class="result-desc" id="levelDesc"></div>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-label">Persentase</div>
+                        <div class="result-value" id="terPersen"></div>
+                    </div>
+                </div>
+
+                <div class="result-card">
+                    <div class="result-label">Nominal dipotong</div>
+                    <div class="result-value" id="terNominal"></div>
+                </div>
+
+                <div class="detail-card">
+                    <h3>Rincian Penghasilan</h3>
+                    <div class="detail-item">
+                        <span>Gaji Pokok</span>
+                        <span id="detailGaji"></span>
+                    </div>
+                    <div class="detail-item">
+                        <span>Penghasilan Lain</span>
+                        <span id="detailLain"></span>
+                    </div>
+                    <div class="detail-item">
+                        <span>Total Bruto</span>
+                        <span id="detailTotal"></span>
+                    </div>
+                    <div class="detail-item">
+                        <span>Nominal dipotong(<span id="detailPersen">%</span>)</span>
+                        <span class="negative" id="detailPajak"></span>
+                    </div>
+                    <div class="detail-item total">
+                        <span>Take Home Pay</span>
+                        <span class="thp" id="detailTHP"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="data.js"></script>
+</body>
+
+</html>
