@@ -1,3 +1,4 @@
+
 // Data PTKP untuk menentukan Kategori
 const dataPTKP = {
     // Kategori A
@@ -196,41 +197,59 @@ function formatRupiah(angka) {
 
 function hitungPajak() {
     try {
-        // Ambil nilai input
-        const npwp = document.getElementById('npwp');
-        const nip = document.getElementById('nip');
-        const nama = document.getElementById('nama');
+
+        const npwp = document.getElementById('npwp').value;
+        const nip = document.getElementById('nip').value;
+        const nama = document.getElementById('nama').value;
         const ptkp = document.getElementById('ptkp').value;
-        
-        // Parse angka (handle koma dan titik)
-        let gaji = parseFloat(document.getElementById('gaji')?.value.replace(/[.,]/g, '')) || 0;
-        let penghasilanLain = parseFloat(document.getElementById('penghasilanLain')?.value.replace(/[.,]/g, '')) || 0;
-        
-        // Validasi input wajib
-        if (!npwp || !nip || !nama) {
-            alert('Mohon lengkapi data pegawai (NPWP, NIP, Nama)!');
+
+        let gaji = parseFloat(document.getElementById('gaji').value) || 0;
+        let penghasilanLain = parseFloat(document.getElementById('penghasilanLain').value) || 0;
+
+        if (npwp === "" || nip === "" || nama === "") {
+            alert("Mohon isi data pegawai");
             return;
         }
-        
+
         if (gaji <= 0) {
-            alert('Mohon isi Gaji Pokok dengan benar!');
+            alert("Gaji harus diisi");
             return;
         }
-        
-        // Hitung total penghasilan
+
         const total = gaji + penghasilanLain;
-        
-        // Dapatkan kategori
+
         const kategori = getKategoriFromPTKP(ptkp);
-        
-        // Dapatkan persentase
+
         const persen = getTarifPersen(kategori, total);
-        
-        // Hitung nominal pajak
+
         const nominalPajak = total * (persen / 100);
-        
-        // Hitung Take Home Pay
+
         const thp = total - nominalPajak;
+
+fetch("simpanPajak.php", {
+method: "POST",
+headers: {
+"Content-Type": "application/x-www-form-urlencoded"
+},
+body: new URLSearchParams({
+npwp: npwp,
+nip: nip,
+nama: nama,
+ptkp: ptkp,
+bulan: new Date().getMonth()+1,
+tahun: new Date().getFullYear(),
+gaji: gaji,
+penghasilan_lain: penghasilanLain,
+bruto: total,
+kategori: kategori,
+tarif: persen,
+pajak: nominalPajak
+})
+})
+.then(res => res.text())
+.then(data => {
+console.log("Response:", data);
+});
         
         // Update level
         document.getElementById('terLevel').textContent = kategori;
