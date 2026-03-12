@@ -19,7 +19,7 @@ body {
     max-width: 100%;
     background: white;
     border-radius: 20px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
     overflow: hidden;
 }
 
@@ -240,6 +240,49 @@ body {
     padding-top: 8px;
     border-top: 2px solid #2c3e50;
     font-weight: 600;
+}
+
+/* Pajak Akhir */
+
+#akhir .section {
+    margin-bottom: 20px;
+}
+
+#akhir .btn {
+    width: 100%;
+    margin-top: 10px;
+}
+
+#akhir .detail-card {
+    margin-top: 10px;
+}
+
+#akhir h2 {
+    color: #2c3e50;
+    font-size: 1.2em;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #2c3e50;
+}
+
+/* Perbaikan navigasi tombol di atas */
+.nav-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding: 0 20px;
+}
+
+.nav-tabs .btn {
+    width: auto; /* Agar tombol tidak selebar container */
+    padding: 10px 25px;
+    margin-top: 0;
+}
+
+/* Memastikan ID akhir memiliki padding yang sama dengan bulanan */
+#akhir {
+    width: 100%;
 }
 
 /* Footer Note */
