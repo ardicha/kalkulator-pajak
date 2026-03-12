@@ -14,105 +14,155 @@
             <p>Tarif Efektif Rata-rata Pajak Penghasilan Pasal 21</p>
         </div>
 
-        <div class="main-content">
-            <div class="left-column">
-                <div class="section">
-                    <h2>Data Pegawai</h2>
-                    <div class="form-group">
-                        <label class="required">NPWP / NIK</label>
-                        <input type="number" id="npwp" placeholder="123456789xxx">
-                    </div>
-                    <div class="form-group">
-                        <label class="required">NIP</label>
-                        <input type="number" id="nip" placeholder="123456789xxx">
-                    </div>
-                    <div class="form-group">
-                        <label class="required">Nama Lengkap</label>
-                        <input type="text" id="nama" placeholder="Ardicha Triana Dewi">
-                    </div>
-                    <div class="form-group">
-                        <label class="required">Status PTKP</label>
-                        <select id="ptkp">
-                            <option value="TK0">TK/0 - Tidak Kawin 0 Tanggungan</option>
-                            <option value="TK1" selected>TK/1 - Tidak Kawin 1 Tanggungan</option>
-                            <option value="TK2">TK/2 - Tidak Kawin 2 Tanggungan</option>
-                            <option value="TK3">TK/3 - Tidak Kawin 3 Tanggungan</option>
-                            <option value="K0">K/0 - Kawin 0 Tanggungan</option>
-                            <option value="K1">K/1 - Kawin 1 Tanggungan</option>
-                            <option value="K2">K/2 - Kawin 2 Tanggungan</option>
-                            <option value="K3">K/3 - Kawin 3 Tanggungan</option>
+        <div style="padding: 20px 20px 0; text-align: center; display: flex; justify-content: center; gap: 10px;">
+            <button class="btn" style="width: auto; padding: 10px 30px;" onclick="showPage('bulanan')">Pajak
+                Bulanan</button>
+            <button class="btn" style="width: auto; padding: 10px 30px;" onclick="showPage('akhir')">Pajak Akhir
+                Periode</button>
+        </div>
 
-                        </select>
-                    </div>
-                </div>
-
-                <div class="section">
-                    <h2>Data Penghasilan</h2>
-                    <div class="form-group">
-                        <label class="required">Gaji Pokok / Bulan</label>
-                        <div class="input-group">
-                            <span class="input-group-text">Rp</span>
-                            <input type="number" id="gaji">
+        <div id="bulanan">
+            <div class="main-content">
+                <div class="left-column">
+                    <div class="section">
+                        <h2>Data Pegawai</h2>
+                        <div class="form-group">
+                            <label class="required">NPWP / NIK</label>
+                            <input type="number" id="npwp" placeholder="123456789xxx">
+                        </div>
+                        <div class="form-group">
+                            <label class="required">NIP</label>
+                            <input type="number" id="nip" placeholder="123456789xxx">
+                        </div>
+                        <div class="form-group">
+                            <label class="required">Nama Lengkap</label>
+                            <input type="text" id="nama" placeholder="Ardicha Triana Dewi">
+                        </div>
+                        <div class="form-group">
+                            <label class="required">Status PTKP</label>
+                            <select id="ptkp">
+                                <option value="TK0">TK/0 - Tidak Kawin 0 Tanggungan</option>
+                                <option value="TK1" selected>TK/1 - Tidak Kawin 1 Tanggungan</option>
+                                <option value="TK2">TK/2 - Tidak Kawin 2 Tanggungan</option>
+                                <option value="TK3">TK/3 - Tidak Kawin 3 Tanggungan</option>
+                                <option value="K0">K/0 - Kawin 0 Tanggungan</option>
+                                <option value="K1">K/1 - Kawin 1 Tanggungan</option>
+                                <option value="K2">K/2 - Kawin 2 Tanggungan</option>
+                                <option value="K3">K/3 - Kawin 3 Tanggungan</option>
+                            </select>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label>Penghasilan Lain / Bulan</label>
-                        <div class="input-group">
-                            <span class="input-group-text">Rp</span>
-                            <input type="number" id="penghasilanLain">
+                    <div class="section">
+                        <h2>Data Penghasilan</h2>
+                        <div class="form-group">
+                            <label class="required">Gaji Pokok / Bulan</label>
+                            <div class="input-group">
+                                <span class="input-group-text">Rp</span>
+                                <input type="number" id="gaji">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Penghasilan Lain / Bulan</label>
+                            <div class="input-group">
+                                <span class="input-group-text">Rp</span>
+                                <input type="number" id="penghasilanLain">
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <button class="btn" onclick="hitungPajak()">Hitung Pajak</button>
-                <button class="btn-reset" onclick="reset()">Reset</button>
-            </div>
-
-            <div class="right-column">
-                <h2>Hasil Perhitungan</h2>
-
-                <div class="result-row">
-                    <div class="result-card">
-                        <div class="result-label">TER Level</div>
-                        <div class="result-value" id="terLevel"></div>
-                        <div class="result-desc" id="levelDesc"></div>
-                    </div>
-                    <div class="result-card">
-                        <div class="result-label">Persentase</div>
-                        <div class="result-value" id="terPersen"></div>
+                    <div style="display: flex; gap: 10px;">
+                        <button class="btn" style="flex: 3;" onclick="hitungPajak()">Hitung Pajak</button>
+                        <button class="btn-reset" style="flex: 1;" onclick="reset()">Reset</button>
                     </div>
                 </div>
 
-                <div class="result-card">
-                    <div class="result-label">Nominal dipotong</div>
-                    <div class="result-value" id="terNominal"></div>
-                </div>
-
-                <div class="detail-card">
-                    <h3>Rincian Penghasilan</h3>
-                    <div class="detail-item">
-                        <span>Gaji Pokok</span>
-                        <span id="detailGaji"></span>
+                <div class="right-column">
+                    <h2>Hasil Perhitungan</h2>
+                    <div class="result-row">
+                        <div class="result-card">
+                            <div class="result-label">TER Level</div>
+                            <div class="result-value" id="terLevel">-</div>
+                            <div class="result-desc" id="levelDesc">Kategori TER</div>
+                        </div>
+                        <div class="result-card">
+                            <div class="result-label">Persentase</div>
+                            <div class="result-value" id="terPersen">0%</div>
+                        </div>
                     </div>
-                    <div class="detail-item">
-                        <span>Penghasilan Lain</span>
-                        <span id="detailLain"></span>
+                    <div class="result-card" style="margin-bottom: 15px;">
+                        <div class="result-label">Nominal Dipotong</div>
+                        <div class="result-value" id="terNominal">Rp 0</div>
                     </div>
-                    <div class="detail-item">
-                        <span>Total Bruto</span>
-                        <span id="detailTotal"></span>
-                    </div>
-                    <div class="detail-item">
-                        <span>Nominal dipotong(<span id="detailPersen">%</span>)</span>
-                        <span class="negative" id="detailPajak"></span>
-                    </div>
-                    <div class="detail-item total">
-                        <span>Take Home Pay</span>
-                        <span class="thp" id="detailTHP"></span>
+                    <div class="detail-card">
+                        <h3>Rincian Penghasilan</h3>
+                        <div class="detail-item"><span>Gaji Pokok</span><span id="detailGaji">Rp 0</span></div>
+                        <div class="detail-item"><span>Penghasilan Lain</span><span id="detailLain">Rp 0</span></div>
+                        <div class="detail-item"><span>Total Bruto</span><span id="detailTotal">Rp 0</span></div>
+                        <div class="detail-item"><span>Nominal dipotong (<span id="detailPersen">0%</span>)</span><span
+                                class="negative" id="detailPajak">Rp 0</span></div>
+                        <div class="detail-item total"><span>Take Home Pay</span><span class="thp" id="detailTHP">Rp
+                                0</span></div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <div id="akhir" style="display:none">
+            <div class="main-content">
+                <div class="left-column">
+                    <div class="section">
+                        <h2>Data Perhitungan Akhir</h2>
+                        <div class="form-group">
+                            <label class="required">NPWP / NIK</label>
+                            <input type="text" id="npwpAkhir" placeholder="Masukkan NPWP/NIK">
+                        </div>
+                        <div class="form-group">
+                            <label class="required">Tahun Pajak</label>
+                            <input type="number" id="tahunAkhir" placeholder="Contoh: 2024">
+                        </div>
+                        <div class="form-group">
+                            <label class="required">Gaji Bulan Terakhir</label>
+                            <div class="input-group">
+                                <span class="input-group-text">Rp</span>
+                                <input type="number" id="gajiDesember">
+                            </div>
+                        </div>
+                           <div class="form-group">
+                            <label class="required">Penghasilan Lain Bulan Terakhir</label>
+                            <div class="input-group">
+                                <span class="input-group-text">Rp</span>
+                                <input type="number" id="penghasilanDesember">
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 10px;">
+                        <button class="btn" style="flex: 3;" onclick="hitungPajakAkhir()">Hitung Pajak Akhir</button>
+                        <button class="btn-reset" style="flex: 1;" onclick="resetAkhir()">Reset</button>
+                    </div>
+                </div>
+
+                <div class="right-column">
+                    <h2>Hasil Pajak Akhir</h2>
+                    <div class="result-card" style="margin-bottom: 15px;">
+                        <div class="result-label">Pajak Akhir Periode</div>
+                        <div class="result-value" id="akhirSelisih" style="font-size: 1.5em;">Rp 0</div>
+                        <div class="result-desc"></div>
+                    </div>
+                    <div class="detail-card">
+                        <h3>Rincian Tahunan</h3>
+                        <div class="detail-item"><span>Bruto</span><span id="akhirBruto">Rp 0</span></div>
+                        <div class="detail-item"><span>Netto</span><span id="akhirNetto">Rp 0</span></div>
+                        <div class="detail-item"><span>PKP</span><span id="akhirPKP">Rp 0</span></div>
+                        <div class="detail-item"><span>PPh21 Setahun</span><span id="akhirPPh">Rp 0</span></div>
+                        <div class="detail-item"><span>Telah Dipotong (TER)</span><span id="akhirPotong">Rp 0</span>
+                        </div>
+                        <div class="detail-item total"><span>Pajak Akhir Periode</span><span id="akhirSelisih"
+                                class="thp">Rp 0</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <p class="footer-note" style="padding-bottom: 20px;">*Sesuai dengan ketentuan PP No. 58 Tahun 2023</p>
     </div>
 
     <script src="data.js"></script>
