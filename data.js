@@ -1,17 +1,16 @@
-
 // Data PTKP untuk menentukan Kategori
 const dataPTKP = {
     // Kategori A
     TK0: { kategori: 'A' },
     TK1: { kategori: 'A' },
-    K0: { kategori: 'A'},
-    
+    K0: { kategori: 'A' },
+
     // Kategori B
     TK2: { kategori: 'B' },
     TK3: { kategori: 'B' },
     K1: { kategori: 'B' },
     K2: { kategori: 'B' },
-    
+
     // Kategori C
     K3: { kategori: 'C' }
 };
@@ -160,8 +159,8 @@ function getKategoriFromPTKP(ptkp) {
 
 function getTarifPersen(kategori, total) {
     let tarifArray;
-    
-    switch(kategori) {
+
+    switch (kategori) {
         case 'A':
             tarifArray = tarifKategoriA;
             break;
@@ -174,7 +173,7 @@ function getTarifPersen(kategori, total) {
         default:
             tarifArray = tarifKategoriA;
     }
-    
+
     for (let i = 0; i < tarifArray.length; i++) {
         if (total > tarifArray[i].min && total <= tarifArray[i].max) {
             return tarifArray[i].persen;
@@ -185,13 +184,13 @@ function getTarifPersen(kategori, total) {
 
 function formatRupiah(angka) {
     if (angka === undefined || angka === null || isNaN(angka)) return 'Rp 0';
-    
+
     const isNegative = angka < 0;
     const absAngka = Math.abs(angka);
-    
+
     // Format dengan titik sebagai pemisah ribuan
     const formatted = 'Rp ' + absAngka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-    
+
     return isNegative ? '- ' + formatted : formatted;
 }
 
@@ -226,47 +225,47 @@ function hitungPajak() {
 
         const thp = total - nominalPajak;
 
-fetch("simpanPajak.php", {
-method: "POST",
-headers: {
-"Content-Type": "application/x-www-form-urlencoded"
-},
-body: new URLSearchParams({
-npwp: npwp,
-nip: nip,
-nama: nama,
-ptkp: ptkp,
-bulan: new Date().getMonth()+1,
-tahun: new Date().getFullYear(),
-gaji: gaji,
-penghasilan_lain: penghasilanLain,
-bruto: total,
-kategori: kategori,
-tarif: persen,
-pajak: nominalPajak
-})
-})
-.then(res => res.text())
-.then(data => {
-console.log("Response:", data);
-});
-        
+        fetch("simpanPajak.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: new URLSearchParams({
+                npwp: npwp,
+                nip: nip,
+                nama: nama,
+                ptkp: ptkp,
+                bulan: new Date().getMonth() + 1,
+                tahun: new Date().getFullYear(),
+                gaji: gaji,
+                penghasilan_lain: penghasilanLain,
+                bruto: total,
+                kategori: kategori,
+                tarif: persen,
+                pajak: nominalPajak
+            })
+        })
+            .then(res => res.text())
+            .then(data => {
+                console.log("Response:", data);
+            });
+
         // Update level
         document.getElementById('terLevel').textContent = kategori;
-        
+
         // Update persen
         document.getElementById('terPersen').textContent = persen.toFixed(2).replace('.', ',') + '%';
-        
+
         // Update nominal
         document.getElementById('terNominal').textContent = formatRupiah(nominalPajak);
-        
+
         // Update rincian hasil
         document.getElementById('detailGaji').textContent = formatRupiah(gaji);
         document.getElementById('detailLain').textContent = formatRupiah(penghasilanLain);
         document.getElementById('detailTotal').textContent = formatRupiah(total);
         document.getElementById('detailPajak').textContent = '- ' + formatRupiah(nominalPajak);
         document.getElementById('detailTHP').textContent = formatRupiah(thp);
-        
+
     } catch (error) {
         console.error('Error dalam perhitungan:', error);
         alert('Terjadi kesalahan dalam perhitungan. Mohon cek input Anda.');
@@ -281,16 +280,121 @@ function reset() {
     document.getElementById('ptkp').value = 'TK1';
     document.getElementById('gaji').value = '';
     document.getElementById('penghasilanLain').value = '';
-    
+
     // Reset hasil
     document.getElementById('terLevel').textContent = '-';
     document.getElementById('levelDesc').textContent = '';
     document.getElementById('terPersen').textContent = '0%';
     document.getElementById('terNominal').textContent = 'Rp 0';
-    
+
     document.getElementById('detailGaji').textContent = 'Rp 0';
     document.getElementById('detailLain').textContent = 'Rp 0';
     document.getElementById('detailTotal').textContent = 'Rp 0';
     document.getElementById('detailPajak').textContent = '- Rp 0';
     document.getElementById('detailTHP').textContent = 'Rp 0';
+};
+
+function showPage(page) {
+    document.getElementById('bulanan').style.display = (page === 'bulanan') ? 'block' : 'none';
+    document.getElementById('akhir').style.display = (page === 'akhir') ? 'block' : 'none';
+}
+
+async function hitungPajakAkhir() {
+    const npwp = document.getElementById('npwpAkhir').value;
+    const tahun = document.getElementById('tahunAkhir').value;
+    const gajiDesember = parseFloat(document.getElementById('gajiDesember').value) || 0;
+    const penghasilanDesember = parseFloat(document.getElementById('penghasilanDesember').value) || 0;
+    if (!npwp || !tahun) return alert("Isi NPWP dan Tahun!");
+
+    // 1. Ambil data dari database
+    const response = await fetch(`ambilPajak.php?npwp=${npwp}&tahun=${tahun}`);
+    const dataDB = await response.json();
+
+    if (!dataDB) return alert("Data tidak ditemukan di database!");
+
+    const brutoJanNov = parseFloat(dataDB.total_bruto);
+    const pajakJanNov = parseFloat(dataDB.total_ter_dibayar);
+    const ptkpKey = dataDB.ptkp;
+    const brutoSetahun = brutoJanNov + gajiDesember + penghasilanDesember
+
+    // Misal kita ambil dari total data yang masuk di database untuk NIP tersebut
+    const jumlahBulan = (parseInt(dataDB.jumlah_record) || 11) + 1; // Default ke 12 jika sudah akhir tahun
+
+    // 2. Hitung Batas Pengurang secara Proporsional
+    let biayaJabatan = 0.05 * brutoSetahun;
+    let maxJabatan = 500000 * (jumlahBulan - 1) ; // Jika bulan ke-3, maka max 1,5jt
+    if (biayaJabatan > maxJabatan) biayaJabatan = maxJabatan;
+
+    let iuranPensiun = 0.02 * brutoSetahun;
+    let maxPensiun = 200000 * (jumlahBulan - 1); // Jika bulan ke-3, maka max 600rb
+    if (iuranPensiun > maxPensiun) iuranPensiun = maxPensiun;
+
+    const netto = brutoSetahun - (biayaJabatan + iuranPensiun);
+
+    // 3. Tentukan Nilai PTKP (Berdasarkan input kamu)
+    const listPTKP = {
+        'TK0': 54000000, 'TK/0': 54000000,
+        'TK1': 58500000, 'TK/1': 58500000,
+        'TK2': 63000000, 'TK/2': 63000000,
+        'TK3': 67500000, 'TK/3': 67500000,
+        'K0': 58500000, 'K/0': 58500000,
+        'K1': 63000000, 'K/1': 63000000,
+        'K2': 67500000, 'K/2': 67500000,
+        'K3': 72000000, 'K/3': 72000000
+    };
+
+    const nilaiPTKP = listPTKP[ptkpKey] || 0;
+
+    // 4. Hitung PKP
+    let pkp = netto - nilaiPTKP;
+    if (pkp < 0) pkp = 0;
+
+    // 5. Hitung PPh 21 Setahun (Tarif Pasal 17 - Progresif)
+    let pphSetahun = hitungPasal17(pkp);
+
+    // 6. Hitung Selisih
+    const selisih = pphSetahun - pajakJanNov;
+
+    // 7. Update Tampilan UI
+    document.getElementById('akhirBruto').textContent = formatRupiah(brutoSetahun);
+    document.getElementById('akhirNetto').textContent = formatRupiah(netto);
+    document.getElementById('akhirPKP').textContent = formatRupiah(pkp);
+    document.getElementById('akhirPPh').textContent = formatRupiah(pphSetahun);
+    document.getElementById('akhirPotong').textContent = formatRupiah(pajakJanNov);
+    document.getElementById('akhirSelisih').textContent = formatRupiah(selisih);
+    document.getElementById('akhirSelisihDetail').textContent = formatRupiah(selisih);
+}
+
+function hitungPasal17(pkp) {
+    // Aturan Pajak: PKP dibulatkan ke bawah ke ribuan terdekat
+    pkp = Math.floor(pkp / 1000) * 1000;
+
+    let pajak = 0;
+
+    if (pkp <= 60000000) {
+        pajak = pkp * 0.05;
+    } else if (pkp <= 250000000) {
+        pajak = (60000000 * 0.05) + ((pkp - 60000000) * 0.15);
+    } else if (pkp <= 500000000) {
+        pajak = (60000000 * 0.05) + (190000000 * 0.15) + ((pkp - 250000000) * 0.25);
+    } else if (pkp <= 5000000000) {
+        pajak = (60000000 * 0.05) + (190000000 * 0.15) + (250000000 * 0.25) + ((pkp - 500000000) * 0.30);
+    } else {
+        pajak = (60000000 * 0.05) + (190000000 * 0.15) + (250000000 * 0.25) + (4500000000 * 0.30) + ((pkp - 5000000000) * 0.35);
+    }
+
+    return pajak;
+}
+
+function resetAkhir() {
+    document.getElementById('npwpAkhir').value = '';
+    document.getElementById('tahunAkhir').value = '';
+    document.getElementById('akhirSelisih').textContent = '-';
+    document.getElementById('akhirBruto').textContent = 'Rp 0';
+    document.getElementById('akhirNetto').textContent = 'Rp 0';
+    document.getElementById('akhirPKP').textContent = 'Rp 0';
+    document.getElementById('akhirPPh').textContent = 'Rp 0';
+    document.getElementById('akhirPotong').textContent = 'Rp 0';
+    document.getElementById('gajiDesember').value = '';
+    document.getElementById('penghasilanDesember').value = '';
 };
