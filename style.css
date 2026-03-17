@@ -41,29 +41,22 @@ body {
     opacity: 0.8;
 }
 
-/* Main Content - 2 Kolom */
+/* Container Utama */
 .main-content {
     display: flex;
+    flex-wrap: wrap; /* Agar otomatis turun ke bawah jika layar HP (kecil) */
     padding: 20px;
     gap: 25px;
-    min-height: 500px;
 }
 
-/* Kolom Kiri (40%) */
-.left-column {
-    flex: 5;
-    background: #f8f9fa;
+/* Kolom Kiri & Kanan */
+.left-column, .right-column {
+    flex: 1; 
+    min-width: 350px; 
+    background: #ffffff;
     border-radius: 15px;
-    padding: 20px;
-    border: 1px solid #e9ecef;
-}
-
-/* Kolom Kanan (60%) */
-.right-column {
-    flex: 5;
-    background: #f8f9fa;
-    border-radius: 15px;
-    padding: 20px;
+    padding: 25px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
     border: 1px solid #e9ecef;
 }
 
