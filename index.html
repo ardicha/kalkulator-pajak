@@ -31,10 +31,6 @@
                             <input type="number" id="npwp" placeholder="123456789xxx">
                         </div>
                         <div class="form-group">
-                            <label class="required">NIP</label>
-                            <input type="number" id="nip" placeholder="123456789xxx">
-                        </div>
-                        <div class="form-group">
                             <label class="required">Nama Lengkap</label>
                             <input type="text" id="nama" placeholder="Ardicha Triana Dewi">
                         </div>
@@ -52,20 +48,35 @@
                             </select>
                         </div>
                     </div>
+
                     <div class="section">
                         <h2>Data Penghasilan</h2>
                         <div class="form-group">
-                            <label class="required">Gaji Pokok / Bulan</label>
+                            <label class="required">Penghasilan 1</label>
                             <div class="input-group">
                                 <span class="input-group-text">Rp</span>
-                                <input type="number" id="gaji">
+                                <input type="number" id="pertama">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Penghasilan Lain / Bulan</label>
+                            <label>Penghasilan 2</label>
                             <div class="input-group">
                                 <span class="input-group-text">Rp</span>
-                                <input type="number" id="penghasilanLain">
+                                <input type="number" id="kedua">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Penghasilan 3</label>
+                            <div class="input-group">
+                                <span class="input-group-text">Rp</span>
+                                <input type="number" id="ketiga">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Penghasilan 4</label>
+                            <div class="input-group">
+                                <span class="input-group-text">Rp</span>
+                                <input type="number" id="keempat">
                             </div>
                         </div>
                     </div>
@@ -74,33 +85,39 @@
                         <button class="btn-reset" style="flex: 1;" onclick="reset()">Reset</button>
                     </div>
                 </div>
-
                 <div class="right-column">
                     <h2>Hasil Perhitungan</h2>
-                    <div class="result-row">
-                        <div class="result-card">
-                            <div class="result-label">TER Level</div>
-                            <div class="result-value" id="terLevel">-</div>
-                            <div class="result-desc" id="levelDesc">Kategori TER</div>
+                    <div class="section">
+                        <div class="result-row">
+                            <div class="result-card">
+                                <div class="result-label">TER Level</div>
+                                <div class="result-value" id="terLevel">-</div>
+                                <div class="result-desc" id="levelDesc">Kategori TER</div>
+                            </div>
+                            <div class="result-card">
+                                <div class="result-label">Persentase</div>
+                                <div class="result-value" id="terPersen">0%</div>
+                            </div>
                         </div>
-                        <div class="result-card">
-                            <div class="result-label">Persentase</div>
-                            <div class="result-value" id="terPersen">0%</div>
+                        <div class="result-card" style="margin-bottom: 15px;">
+                            <div class="result-label">Nominal Dipotong</div>
+                            <div class="result-value" id="terNominal">Rp 0</div>
                         </div>
-                    </div>
-                    <div class="result-card" style="margin-bottom: 15px;">
-                        <div class="result-label">Nominal Dipotong</div>
-                        <div class="result-value" id="terNominal">Rp 0</div>
-                    </div>
-                    <div class="detail-card">
-                        <h3>Rincian Penghasilan</h3>
-                        <div class="detail-item"><span>Gaji Pokok</span><span id="detailGaji">Rp 0</span></div>
-                        <div class="detail-item"><span>Penghasilan Lain</span><span id="detailLain">Rp 0</span></div>
-                        <div class="detail-item"><span>Total Bruto</span><span id="detailTotal">Rp 0</span></div>
-                        <div class="detail-item"><span>Nominal dipotong (<span id="detailPersen">0%</span>)</span><span
-                                class="negative" id="detailPajak">Rp 0</span></div>
-                        <div class="detail-item total"><span>Take Home Pay</span><span class="thp" id="detailTHP">Rp
-                                0</span></div>
+                        <div class="detail-card">
+                            <h3>Rincian Penghasilan</h3>
+                            <div class="detail-item"><span>Gaji Pokok</span><span id="detailGaji">Rp 0</span>
+                            </div>
+                            <div class="detail-item"><span>Penghasilan Lain</span><span id="detailLain">Rp
+                                    0</span>
+                            </div>
+                            <div class="detail-item"><span>Total Bruto</span><span id="detailTotal">Rp 0</span>
+                            </div>
+                            <div class="detail-item"><span>Nominal dipotong (<span
+                                        id="detailPersen">0%</span>)</span><span class="negative" id="detailPajak">Rp
+                                    0</span></div>
+                            <div class="detail-item total"><span>Take Home Pay</span><span class="thp" id="detailTHP">Rp
+                                    0</span></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -126,7 +143,7 @@
                                 <input type="number" id="gajiDesember">
                             </div>
                         </div>
-                           <div class="form-group">
+                        <div class="form-group">
                             <label class="required">Penghasilan Lain Bulan Terakhir</label>
                             <div class="input-group">
                                 <span class="input-group-text">Rp</span>
@@ -135,7 +152,8 @@
                         </div>
                     </div>
                     <div style="display: flex; gap: 10px;">
-                        <button class="btn" style="flex: 3;" onclick="hitungPajakAkhir()">Hitung Pajak Akhir</button>
+                        <button class="btn" style="flex: 3;" onclick="hitungPajakAkhir()">Hitung Pajak
+                            Akhir</button>
                         <button class="btn-reset" style="flex: 1;" onclick="resetAkhir()">Reset</button>
                     </div>
                 </div>
@@ -153,7 +171,8 @@
                         <div class="detail-item"><span>Netto</span><span id="akhirNetto">Rp 0</span></div>
                         <div class="detail-item"><span>PKP</span><span id="akhirPKP">Rp 0</span></div>
                         <div class="detail-item"><span>PPh21 Setahun</span><span id="akhirPPh">Rp 0</span></div>
-                        <div class="detail-item"><span>Telah Dipotong (TER)</span><span id="akhirPotong">Rp 0</span>
+                        <div class="detail-item"><span>Telah Dipotong (TER)</span><span id="akhirPotong">Rp
+                                0</span>
                         </div>
                         <div class="detail-item total"><span>Pajak Akhir Periode</span><span id="akhirSelisihDetail"
                                 class="thp">Rp 0</span></div>
