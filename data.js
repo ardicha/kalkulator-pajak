@@ -175,7 +175,7 @@ function getTarifPersen(kategori, total) {
     }
 
     for (let i = 0; i < tarifArray.length; i++) {
-        if (total > tarifArray[i].min && total <= tarifArray[i].max) {
+        if (total >= tarifArray[i].min && total <= tarifArray[i].max) {
             return tarifArray[i].persen;
         }
     }
@@ -197,25 +197,42 @@ function formatRupiah(angka) {
 function hitungPajak() {
     try {
 
-        const npwp = document.getElementById('npwp').value;
-        const nip = document.getElementById('nip').value;
-        const nama = document.getElementById('nama').value;
-        const ptkp = document.getElementById('ptkp').value;
+        console.log("npwp:", document.getElementById('npwp'));
+        console.log("nama:", document.getElementById('nama'));
+        console.log("ptkp:", document.getElementById('ptkp'));
+        console.log("p1:", document.getElementById('penghasilan1'));
+        console.log("p2:", document.getElementById('penghasilan2'));
+        console.log("p3:", document.getElementById('penghasilan3'));
+        console.log("p4:", document.getElementById('penghasilan4'));
 
-        let gaji = parseFloat(document.getElementById('gaji').value) || 0;
-        let penghasilanLain = parseFloat(document.getElementById('penghasilanLain').value) || 0;
+        const getVal = (id) => {
+            const el = document.getElementById(id);
+            if (!el) {
+                throw new Error(`Element ${id} tidak ditemukan`);
+            }
+            return el.value;
+        };
 
-        if (npwp === "" || nip === "" || nama === "") {
+        const npwp = getVal('npwp');
+        const nama = getVal('nama');
+        const ptkp = getVal('ptkp');
+
+        let penghasilan1 = parseFloat(getVal('penghasilan1')) || 0;
+        let penghasilan2 = parseFloat(getVal('penghasilan2')) || 0;
+        let penghasilan3 = parseFloat(getVal('penghasilan3')) || 0;
+        let penghasilan4 = parseFloat(getVal('penghasilan4')) || 0;
+
+        if (npwp === "" || nama === "") {
             alert("Mohon isi data pegawai");
             return;
         }
 
-        if (gaji <= 0) {
-            alert("Gaji harus diisi");
+        if (penghasilan1 <= 0) {
+            alert("Penghasilan harus diisi");
             return;
         }
 
-        const total = gaji + penghasilanLain;
+        const total = penghasilan1 + penghasilan2 + penghasilan3 + penghasilan4;
 
         const kategori = getKategoriFromPTKP(ptkp);
 
@@ -232,13 +249,14 @@ function hitungPajak() {
             },
             body: new URLSearchParams({
                 npwp: npwp,
-                nip: nip,
                 nama: nama,
                 ptkp: ptkp,
                 bulan: new Date().getMonth() + 1,
                 tahun: new Date().getFullYear(),
-                gaji: gaji,
-                penghasilan_lain: penghasilanLain,
+                penghasilan1: penghasilan1,
+                penghasilan2: penghasilan2,
+                penghasilan3: penghasilan3,
+                penghasilan4: penghasilan4,
                 bruto: total,
                 kategori: kategori,
                 tarif: persen,
@@ -260,8 +278,11 @@ function hitungPajak() {
         document.getElementById('terNominal').textContent = formatRupiah(nominalPajak);
 
         // Update rincian hasil
-        document.getElementById('detailGaji').textContent = formatRupiah(gaji);
-        document.getElementById('detailLain').textContent = formatRupiah(penghasilanLain);
+        document.getElementById('detail1').textContent = formatRupiah(penghasilan1);
+        document.getElementById('detail2').textContent = formatRupiah(penghasilan2);
+        document.getElementById('detail3').textContent = formatRupiah(penghasilan3);
+        document.getElementById('detail4').textContent = formatRupiah(penghasilan4);
+        document.getElementById('detailPersen').textContent = persen.toFixed(2).replace('.', ',') + '%';
         document.getElementById('detailTotal').textContent = formatRupiah(total);
         document.getElementById('detailPajak').textContent = '- ' + formatRupiah(nominalPajak);
         document.getElementById('detailTHP').textContent = formatRupiah(thp);
@@ -275,11 +296,12 @@ function hitungPajak() {
 function reset() {
     // Reset input
     document.getElementById('npwp').value = '';
-    document.getElementById('nip').value = '';
     document.getElementById('nama').value = '';
     document.getElementById('ptkp').value = 'TK1';
-    document.getElementById('gaji').value = '';
-    document.getElementById('penghasilanLain').value = '';
+    document.getElementById('penghasilan1').value = '';
+    document.getElementById('penghasilan2').value = '';
+    document.getElementById('penghasilan3').value = '';
+    document.getElementById('penghasilan4').value = '';
 
     // Reset hasil
     document.getElementById('terLevel').textContent = '-';
@@ -287,8 +309,10 @@ function reset() {
     document.getElementById('terPersen').textContent = '0%';
     document.getElementById('terNominal').textContent = 'Rp 0';
 
-    document.getElementById('detailGaji').textContent = 'Rp 0';
-    document.getElementById('detailLain').textContent = 'Rp 0';
+    document.getElementById('detail1').textContent = 'Rp 0';
+    document.getElementById('detail2').textContent = 'Rp 0';
+    document.getElementById('detail3').textContent = 'Rp 0';
+    document.getElementById('detail4').textContent = 'Rp 0';
     document.getElementById('detailTotal').textContent = 'Rp 0';
     document.getElementById('detailPajak').textContent = '- Rp 0';
     document.getElementById('detailTHP').textContent = 'Rp 0';
@@ -302,8 +326,10 @@ function showPage(page) {
 async function hitungPajakAkhir() {
     const npwp = document.getElementById('npwpAkhir').value;
     const tahun = document.getElementById('tahunAkhir').value;
-    const gajiDesember = parseFloat(document.getElementById('gajiDesember').value) || 0;
-    const penghasilanDesember = parseFloat(document.getElementById('penghasilanDesember').value) || 0;
+    const terakhir1 = parseFloat(document.getElementById('terakhir1').value) || 0;
+    const terakhir2 = parseFloat(document.getElementById('terakhir2').value) || 0;
+    const terakhir3 = parseFloat(document.getElementById('terakhir3').value) || 0;
+    const terakhir4 = parseFloat(document.getElementById('terakhir4').value) || 0;
     if (!npwp || !tahun) return alert("Isi NPWP dan Tahun!");
 
     // 1. Ambil data dari database
@@ -315,14 +341,14 @@ async function hitungPajakAkhir() {
     const brutoJanNov = parseFloat(dataDB.total_bruto);
     const pajakJanNov = parseFloat(dataDB.total_ter_dibayar);
     const ptkpKey = dataDB.ptkp;
-    const brutoSetahun = brutoJanNov + gajiDesember + penghasilanDesember
+    const brutoSetahun = brutoJanNov + terakhir1 + terakhir2 + terakhir3 + terakhir4
 
     // Misal kita ambil dari total data yang masuk di database untuk NIP tersebut
     const jumlahBulan = (parseInt(dataDB.jumlah_record) || 11) + 1; // Default ke 12 jika sudah akhir tahun
 
     // 2. Hitung Batas Pengurang secara Proporsional
     let biayaJabatan = 0.05 * brutoSetahun;
-    let maxJabatan = 500000 * (jumlahBulan - 1) ; // Jika bulan ke-3, maka max 1,5jt
+    let maxJabatan = 500000 * (jumlahBulan - 1); // Jika bulan ke-3, maka max 1,5jt
     if (biayaJabatan > maxJabatan) biayaJabatan = maxJabatan;
 
     let iuranPensiun = 0.02 * brutoSetahun;
@@ -357,6 +383,9 @@ async function hitungPajakAkhir() {
 
     // 7. Update Tampilan UI
     document.getElementById('akhirBruto').textContent = formatRupiah(brutoSetahun);
+    document.getElementById('akhirBiayaJabatan').textContent = formatRupiah(biayaJabatan);
+    document.getElementById('akhirIuran').textContent= formatRupiah(iuranPensiun);
+    document.getElementById('akhirPengurang').textContent= formatRupiah(biayaJabatan + iuranPensiun);
     document.getElementById('akhirNetto').textContent = formatRupiah(netto);
     document.getElementById('akhirPKP').textContent = formatRupiah(pkp);
     document.getElementById('akhirPPh').textContent = formatRupiah(pphSetahun);
@@ -395,6 +424,8 @@ function resetAkhir() {
     document.getElementById('akhirPKP').textContent = 'Rp 0';
     document.getElementById('akhirPPh').textContent = 'Rp 0';
     document.getElementById('akhirPotong').textContent = 'Rp 0';
-    document.getElementById('gajiDesember').value = '';
-    document.getElementById('penghasilanDesember').value = '';
+    document.getElementById('terakhir1').value = '';
+    document.getElementById('terakhir2').value = '';
+    document.getElementById('terakhir3').value = '';
+    document.getElementById('terakhir4').value = '';
 };
