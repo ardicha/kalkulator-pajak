@@ -9,22 +9,23 @@ if($conn->connect_error){
 if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 $npwp = $_POST['npwp'] ?? '';
-$nip = $_POST['nip'] ?? '';
 $nama = $_POST['nama'] ?? '';
 $ptkp = $_POST['ptkp'] ?? '';
 $bulan = $_POST['bulan'] ?? '';
 $tahun = $_POST['tahun'] ?? '';
-$gaji = $_POST['gaji'] ?? 0;
-$penghasilan_lain = $_POST['penghasilan_lain'] ?? 0;
+$penghasilan1 = $_POST['penghasilan1'] ?? 0;
+$penghasilan2 = $_POST['penghasilan2'] ?? 0;
+$penghasilan3 = $_POST['penghasilan3'] ?? 0;
+$penghasilan4 = $_POST['penghasilan4'] ?? 0;
 $bruto = $_POST['bruto'] ?? 0;
 $kategori = $_POST['kategori'] ?? '';
 $tarif = $_POST['tarif'] ?? 0;
 $pajak = $_POST['pajak'] ?? 0;
 
 $sql = "INSERT INTO pajak_bulanan
-(npwp,nip,nama,ptkp,bulan,tahun,gaji,penghasilan_lain,bruto,kategori,tarif,pajak)
+(npwp,nama,ptkp,bulan,tahun,penghasilan1,penghasilan2,penghasilan3,penghasilan4,bruto,kategori,tarif,pajak)
 VALUES
-('$npwp','$nip','$nama','$ptkp','$bulan','$tahun','$gaji','$penghasilan_lain','$bruto','$kategori','$tarif','$pajak')";
+('$npwp','$nama','$ptkp','$bulan','$tahun','$penghasilan1','$penghasilan2','$penghasilan3','$penghasilan4','$bruto','$kategori','$tarif','$pajak')";
 
 if($conn->query($sql)){
     echo "Data berhasil disimpan";
