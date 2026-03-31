@@ -47,6 +47,27 @@
                                 <option value="K3">K/3 - Kawin 3 Tanggungan</option>
                             </select>
                         </div>
+                        <div class="form-group">
+                            <label class="required">Bulan</label>
+                            <select id="bulan">
+                                <option value="januari">Januari</option>
+                                <option value="februari" selected>Februari</option>
+                                <option value="maret">Maret</option>
+                                <option value="april">April</option>
+                                <option value="mei">Mei</option>
+                                <option value="juni">Juni</option>
+                                <option value="juli">Juli</option>
+                                <option value="agustus">Agustus</option>
+                                <option value="september">September</option>
+                                <option value="oktober">Oktober</option>
+                                <option value="november">November</option>
+                                <option value="desember">Desember</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="required">Tahun</label>
+                            <input type="number" id="tahun" placeholder="2026">
+                        </div>
                     </div>
 
                     <div class="section">
@@ -115,7 +136,9 @@
                             </div>
                             <div class="detail-item"><span>Total Bruto</span><span id="detailTotal">Rp 0</span>
                             </div>
-                            <div class="detail-item"><span>Nominal dipotong (<span id="detailPersen">0%</span>)</span><span class="negative" id="detailPajak">Rp 0</span></div>
+                            <div class="detail-item"><span>Nominal dipotong (<span
+                                        id="detailPersen">0%</span>)</span><span class="negative" id="detailPajak">Rp
+                                    0</span></div>
                             <div class="detail-item total"><span>Take Home Pay</span><span class="thp" id="detailTHP">Rp
                                     0</span></div>
                         </div>
@@ -187,9 +210,6 @@
                     <div class="detail-card">
                         <h3>Rincian Tahunan</h3>
                         <div class="detail-item"><span>Bruto</span><span id="akhirBruto">Rp 0</span></div>
-                        <div class="detail-item"><span>Biaya Jabatan</span><span id="akhirBiayaJabatan">Rp 0</span></div>
-                        <div class="detail-item"><span>Iuran Pensiun</span><span id="akhirIuran">Rp 0</span></div>
-                        <div class="detail-item"><span>Pengurang</span><span id="akhirPengurang">Rp 0</span></div>
                         <div class="detail-item"><span>Netto</span><span id="akhirNetto">Rp 0</span></div>
                         <div class="detail-item"><span>PKP</span><span id="akhirPKP">Rp 0</span></div>
                         <div class="detail-item"><span>PPh21 Setahun</span><span id="akhirPPh">Rp 0</span></div>
