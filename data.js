@@ -216,6 +216,11 @@ function hitungPajak() {
         const npwp = getVal('npwp');
         const nama = getVal('nama');
         const ptkp = getVal('ptkp');
+        const bulan = getVal('bulan');
+        const tahun = getVal('tahun');
+
+        console.log("BULAN DIINPUT:", bulan);
+        console.log("TAHUN DIINPUT:", tahun);
 
         let penghasilan1 = parseFloat(getVal('penghasilan1')) || 0;
         let penghasilan2 = parseFloat(getVal('penghasilan2')) || 0;
@@ -251,8 +256,8 @@ function hitungPajak() {
                 npwp: npwp,
                 nama: nama,
                 ptkp: ptkp,
-                bulan: new Date().getMonth() + 1,
-                tahun: new Date().getFullYear(),
+                bulan: bulan,
+                tahun: tahun,
                 penghasilan1: penghasilan1,
                 penghasilan2: penghasilan2,
                 penghasilan3: penghasilan3,
@@ -298,6 +303,8 @@ function reset() {
     document.getElementById('npwp').value = '';
     document.getElementById('nama').value = '';
     document.getElementById('ptkp').value = 'TK1';
+    document.getElementById('bulan').value = 'februari';
+    document.getElementById('tahun').value = '';
     document.getElementById('penghasilan1').value = '';
     document.getElementById('penghasilan2').value = '';
     document.getElementById('penghasilan3').value = '';
@@ -383,9 +390,6 @@ async function hitungPajakAkhir() {
 
     // 7. Update Tampilan UI
     document.getElementById('akhirBruto').textContent = formatRupiah(brutoSetahun);
-    document.getElementById('akhirBiayaJabatan').textContent = formatRupiah(biayaJabatan);
-    document.getElementById('akhirIuran').textContent= formatRupiah(iuranPensiun);
-    document.getElementById('akhirPengurang').textContent= formatRupiah(biayaJabatan + iuranPensiun);
     document.getElementById('akhirNetto').textContent = formatRupiah(netto);
     document.getElementById('akhirPKP').textContent = formatRupiah(pkp);
     document.getElementById('akhirPPh').textContent = formatRupiah(pphSetahun);
