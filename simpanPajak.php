@@ -21,11 +21,13 @@ $bruto = $_POST['bruto'] ?? 0;
 $kategori = $_POST['kategori'] ?? '';
 $tarif = $_POST['tarif'] ?? 0;
 $pajak = $_POST['pajak'] ?? 0;
+$biayaJabatan = $_POST['biayaJabatan'] ?? 0;
+$iuranPensiun = $_POST['iuranPensiun'] ?? 0;
 
 $sql = "INSERT INTO pajak_bulanan
-(npwp,nama,ptkp,bulan,tahun,penghasilan1,penghasilan2,penghasilan3,penghasilan4,bruto,kategori,tarif,pajak)
+(npwp,nama,ptkp,bulan,tahun,penghasilan1,penghasilan2,penghasilan3,penghasilan4,bruto,kategori,tarif,pajak,biayaJabatan,iuranPensiun)
 VALUES
-('$npwp','$nama','$ptkp','$bulan','$tahun','$penghasilan1','$penghasilan2','$penghasilan3','$penghasilan4','$bruto','$kategori','$tarif','$pajak')";
+('$npwp','$nama','$ptkp','$bulan','$tahun','$penghasilan1','$penghasilan2','$penghasilan3','$penghasilan4','$bruto','$kategori','$tarif','$pajak','$biayaJabatan','$iuranPensiun')";
 
 if($conn->query($sql)){
     echo "Data berhasil disimpan";
