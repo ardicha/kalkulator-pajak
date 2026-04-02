@@ -6,6 +6,8 @@ $tahun = mysqli_real_escape_string($conn, $_GET['tahun']);
 
 $sql = "SELECT SUM(bruto) as total_bruto, 
                SUM(pajak) as total_ter_dibayar, 
+               SUM(biayaJabatan) as biayaJabatan,
+               SUM(iuranPensiun) as iuranPensiun,  
                COUNT(bulan) as jumlah_record, 
                ptkp 
         FROM pajak_bulanan 
