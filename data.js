@@ -197,14 +197,6 @@ function formatRupiah(angka) {
 function hitungPajak() {
     try {
 
-        console.log("npwp:", document.getElementById('npwp'));
-        console.log("nama:", document.getElementById('nama'));
-        console.log("ptkp:", document.getElementById('ptkp'));
-        console.log("p1:", document.getElementById('penghasilan1'));
-        console.log("p2:", document.getElementById('penghasilan2'));
-        console.log("p3:", document.getElementById('penghasilan3'));
-        console.log("p4:", document.getElementById('penghasilan4'));
-
         const getVal = (id) => {
             const el = document.getElementById(id);
             if (!el) {
@@ -218,9 +210,6 @@ function hitungPajak() {
         const ptkp = getVal('ptkp');
         const bulan = getVal('bulan');
         const tahun = getVal('tahun');
-
-        console.log("BULAN DIINPUT:", bulan);
-        console.log("TAHUN DIINPUT:", tahun);
 
         let penghasilan1 = parseFloat(getVal('penghasilan1')) || 0;
         let penghasilan2 = parseFloat(getVal('penghasilan2')) || 0;
@@ -238,6 +227,12 @@ function hitungPajak() {
         }
 
         const total = penghasilan1 + penghasilan2 + penghasilan3 + penghasilan4;
+
+        let biayaJabatan = total * 0.05;
+        if (biayaJabatan > 500000) biayaJabatan = 500000;
+
+        let iuranPensiun = total * 0.02;
+        if (iuranPensiun > 200000) iuranPensiun = 200000;
 
         const kategori = getKategoriFromPTKP(ptkp);
 
@@ -265,7 +260,9 @@ function hitungPajak() {
                 bruto: total,
                 kategori: kategori,
                 tarif: persen,
-                pajak: nominalPajak
+                pajak: nominalPajak,
+                biayaJabatan: biayaJabatan,
+                iuranPensiun: iuranPensiun
             })
         })
             .then(res => res.text())
@@ -347,22 +344,15 @@ async function hitungPajakAkhir() {
 
     const brutoJanNov = parseFloat(dataDB.total_bruto);
     const pajakJanNov = parseFloat(dataDB.total_ter_dibayar);
+    const biayaJabatanTotal = parseFloat(dataDB.biayaJabatan) || 0;
+    const iuranPensiunTotal = parseFloat(dataDB.iuranPensiun) || 0;
     const ptkpKey = dataDB.ptkp;
     const brutoSetahun = brutoJanNov + terakhir1 + terakhir2 + terakhir3 + terakhir4
 
-    // Misal kita ambil dari total data yang masuk di database untuk NIP tersebut
-    const jumlahBulan = (parseInt(dataDB.jumlah_record) || 11) + 1; // Default ke 12 jika sudah akhir tahun
-
-    // 2. Hitung Batas Pengurang secara Proporsional
-    let biayaJabatan = 0.05 * brutoSetahun;
-    let maxJabatan = 500000 * (jumlahBulan - 1); // Jika bulan ke-3, maka max 1,5jt
-    if (biayaJabatan > maxJabatan) biayaJabatan = maxJabatan;
-
-    let iuranPensiun = 0.02 * brutoSetahun;
-    let maxPensiun = 200000 * (jumlahBulan - 1); // Jika bulan ke-3, maka max 600rb
-    if (iuranPensiun > maxPensiun) iuranPensiun = maxPensiun;
-
-    const netto = brutoSetahun - (biayaJabatan + iuranPensiun);
+    const totalBiayaJabatan = biayaJabatanTotal;
+    const totalIuranPensiun = iuranPensiunTotal;
+    const totalPengurang = totalBiayaJabatan + totalIuranPensiun;
+    const netto = brutoSetahun - totalPengurang
 
     // 3. Tentukan Nilai PTKP (Berdasarkan input kamu)
     const listPTKP = {
@@ -390,6 +380,9 @@ async function hitungPajakAkhir() {
 
     // 7. Update Tampilan UI
     document.getElementById('akhirBruto').textContent = formatRupiah(brutoSetahun);
+    document.getElementById('akhirBiayaJabatan').textContent = formatRupiah(totalBiayaJabatan);
+    document.getElementById('akhirIuranPensiun').textContent = formatRupiah(totalIuranPensiun);
+    document.getElementById('akhirPengurang').textContent = formatRupiah(totalPengurang);
     document.getElementById('akhirNetto').textContent = formatRupiah(netto);
     document.getElementById('akhirPKP').textContent = formatRupiah(pkp);
     document.getElementById('akhirPPh').textContent = formatRupiah(pphSetahun);
