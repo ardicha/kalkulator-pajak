@@ -384,6 +384,7 @@ async function hitungPajakAkhir() {
     document.getElementById('akhirIuranPensiun').textContent = formatRupiah(totalIuranPensiun);
     document.getElementById('akhirPengurang').textContent = formatRupiah(totalPengurang);
     document.getElementById('akhirNetto').textContent = formatRupiah(netto);
+    document.getElementById('akhirPTKP').textContent = formatRupiah(nilaiPTKP);
     document.getElementById('akhirPKP').textContent = formatRupiah(pkp);
     document.getElementById('akhirPPh').textContent = formatRupiah(pphSetahun);
     document.getElementById('akhirPotong').textContent = formatRupiah(pajakJanNov);
@@ -417,10 +418,15 @@ function resetAkhir() {
     document.getElementById('tahunAkhir').value = '';
     document.getElementById('akhirSelisih').textContent = '-';
     document.getElementById('akhirBruto').textContent = 'Rp 0';
+    document.getElementById('akhirBiayaJabatan').textContent = 'Rp 0';
+    document.getElementById('akhirIuranPensiun').textContent = 'Rp 0';
+    document.getElementById('akhirPengurang').textContent = 'Rp 0';
     document.getElementById('akhirNetto').textContent = 'Rp 0';
+    document.getElementById('akhirPTKP').textContent = 'Rp 0';
     document.getElementById('akhirPKP').textContent = 'Rp 0';
     document.getElementById('akhirPPh').textContent = 'Rp 0';
     document.getElementById('akhirPotong').textContent = 'Rp 0';
+    document.getElementById('akhirSelisihDetail').textContent = 'Rp 0';
     document.getElementById('terakhir1').value = '';
     document.getElementById('terakhir2').value = '';
     document.getElementById('terakhir3').value = '';
