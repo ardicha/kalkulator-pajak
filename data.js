@@ -334,13 +334,34 @@ async function hitungPajakAkhir() {
     const terakhir2 = parseFloat(document.getElementById('terakhir2').value) || 0;
     const terakhir3 = parseFloat(document.getElementById('terakhir3').value) || 0;
     const terakhir4 = parseFloat(document.getElementById('terakhir4').value) || 0;
+
     if (!npwp || !tahun) return alert("Isi NPWP dan Tahun!");
 
-    // 1. Ambil data dari database
     const response = await fetch(`ambilPajak.php?npwp=${npwp}&tahun=${tahun}`);
-    const dataDB = await response.json();
+    const result = await response.json();
 
-    if (!dataDB) return alert("Data tidak ditemukan di database!");
+    if (!result || !result.summary) return alert("Data tidak ditemukan di database!");
+
+    const dataDB = result.summary;
+    const details = result.details;
+
+    // --- LOGIKA TAMPILKAN TABEL RIWAYAT ---
+    const sectionRiwayat = document.getElementById('sectionRiwayat');
+    const tbody = document.getElementById('tabelRiwayatBody');
+    tbody.innerHTML = ''; // Kosongkan tabel sebelumnya
+    sectionRiwayat.style.display = 'block';
+
+    details.forEach(item => {
+        const row = `<tr>
+            <td style="padding: 5px; border: 1px solid #ddd;">${item.bulan}</td>
+            <td style="padding: 5px; border: 1px solid #ddd;">${formatRupiah(parseFloat(item.penghasilan1))}</td>
+            <td style="padding: 5px; border: 1px solid #ddd;">${formatRupiah(parseFloat(item.penghasilan2))}</td>
+            <td style="padding: 5px; border: 1px solid #ddd;">${formatRupiah(parseFloat(item.penghasilan3))}</td>
+            <td style="padding: 5px; border: 1px solid #ddd;">${formatRupiah(parseFloat(item.penghasilan4))}</td>
+            <td style="padding: 5px; border: 1px solid #ddd; font-weight:bold;">${formatRupiah(parseFloat(item.bruto))}</td>
+        </tr>`;
+        tbody.innerHTML += row;
+    });
 
     const brutoJanNov = parseFloat(dataDB.total_bruto);
     const pajakJanNov = parseFloat(dataDB.total_ter_dibayar);
