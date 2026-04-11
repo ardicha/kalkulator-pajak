@@ -414,27 +414,80 @@ async function hitungPajakAkhir() {
 }
 
 function hitungPasal17(pkp) {
-    // Aturan Pajak: PKP dibulatkan ke bawah ke ribuan terdekat
-    pkp = Math.floor(pkp / 1000) * 1000;
-
     let pajak = 0;
+    let rincianTeks = "";
+    const elRincian = document.getElementById('rincianProgresif');
+
+    if (pkp <= 0) {
+        if(elRincian) elRincian.style.display = 'none';
+        return 0;
+    }
+
+    // Variabel pembantu untuk menghitung tiap lapis
+    let lapis1 = 0, lapis2 = 0, lapis3 = 0, lapis4 = 0, lapis5 = 0;
 
     if (pkp <= 60000000) {
-        pajak = pkp * 0.05;
-    } else if (pkp <= 250000000) {
-        pajak = (60000000 * 0.05) + ((pkp - 60000000) * 0.15);
-    } else if (pkp <= 500000000) {
-        pajak = (60000000 * 0.05) + (190000000 * 0.15) + ((pkp - 250000000) * 0.25);
-    } else if (pkp <= 5000000000) {
-        pajak = (60000000 * 0.05) + (190000000 * 0.15) + (250000000 * 0.25) + ((pkp - 500000000) * 0.30);
-    } else {
-        pajak = (60000000 * 0.05) + (190000000 * 0.15) + (250000000 * 0.25) + (4500000000 * 0.30) + ((pkp - 5000000000) * 0.35);
+        lapis1 = pkp * 0.05;
+        pajak = lapis1;
+        rincianTeks += `• 5% x ${formatRupiah(pkp)} = <b>${formatRupiah(lapis1)}</b>`;
+    } 
+    else if (pkp <= 250000000) {
+        lapis1 = 60000000 * 0.05;
+        lapis2 = (pkp - 60000000) * 0.15;
+        pajak = lapis1 + lapis2;
+        rincianTeks += `• 5% x ${formatRupiah(60000000)} = ${formatRupiah(lapis1)}<br>`;
+        rincianTeks += `• 15% x ${formatRupiah(pkp - 60000000)} = <b>${formatRupiah(lapis2)}</b>`;
+    } 
+    else if (pkp <= 500000000) {
+        lapis1 = 60000000 * 0.05;
+        lapis2 = 190000000 * 0.15;
+        lapis3 = (pkp - 250000000) * 0.25;
+        pajak = lapis1 + lapis2 + lapis3;
+        rincianTeks += `• 5% x ${formatRupiah(60000000)} = ${formatRupiah(lapis1)}<br>`;
+        rincianTeks += `• 15% x ${formatRupiah(190000000)} = ${formatRupiah(lapis2)}<br>`;
+        rincianTeks += `• 25% x ${formatRupiah(pkp - 250000000)} = <b>${formatRupiah(lapis3)}</b>`;
+    } 
+    else if (pkp <= 5000000000) {
+        lapis1 = 60000000 * 0.05;
+        lapis2 = 190000000 * 0.15;
+        lapis3 = 250000000 * 0.25;
+        lapis4 = (pkp - 500000000) * 0.30;
+        pajak = lapis1 + lapis2 + lapis3 + lapis4;
+        rincianTeks += `• 5% x ... = ${formatRupiah(lapis1)}<br>`;
+        rincianTeks += `• 15% x ... = ${formatRupiah(lapis2)}<br>`;
+        rincianTeks += `• 25% x ... = ${formatRupiah(lapis3)}<br>`;
+        rincianTeks += `• 30% x ${formatRupiah(pkp - 500000000)} = <b>${formatRupiah(lapis4)}</b>`;
+    } 
+    else {
+        lapis1 = 60000000 * 0.05;
+        lapis2 = 190000000 * 0.15;
+        lapis3 = 250000000 * 0.25;
+        lapis4 = 4500000000 * 0.30;
+        lapis5 = (pkp - 5000000000) * 0.35;
+        pajak = lapis1 + lapis2 + lapis3 + lapis4 + lapis5;
+        rincianTeks += `• Lapis 1-4 = ${formatRupiah(lapis1 + lapis2 + lapis3 + lapis4)}<br>`;
+        rincianTeks += `• 35% x ${formatRupiah(pkp - 5000000000)} = <b>${formatRupiah(lapis5)}</b>`;
+    }
+
+    if(elRincian) {
+        elRincian.style.display = 'block';
+        elRincian.innerHTML = `<strong>Rincian Perhitungan (Pasal 17):</strong><br>${rincianTeks}<hr style="border:0; border-top:1px solid #ccc; margin:5px 0;">Total PPh 21: <b>${formatRupiah(pajak)}</b>`;
     }
 
     return pajak;
 }
 
 function resetAkhir() {
+    const elRincian = document.getElementById('rincianProgresif');
+    if(elRincian) {
+        elRincian.style.display = 'none';
+        elRincian.innerHTML = '';
+    }
+    const sectionRiwayat = document.getElementById('sectionRiwayat');
+    const tbody = document.getElementById('tabelRiwayatBody');
+    if (sectionRiwayat) sectionRiwayat.style.display = 'none';
+    if (tbody) tbody.innerHTML = '';
+
     document.getElementById('npwpAkhir').value = '';
     document.getElementById('tahunAkhir').value = '';
     document.getElementById('akhirSelisih').textContent = '-';
