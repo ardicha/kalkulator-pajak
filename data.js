@@ -284,7 +284,7 @@ function hitungPajak() {
         document.getElementById('detail2').textContent = formatRupiah(penghasilan2);
         document.getElementById('detail3').textContent = formatRupiah(penghasilan3);
         document.getElementById('detail4').textContent = formatRupiah(penghasilan4);
-        document.getElementById('detailPersen').textContent = persen.toFixed(2).replace('.', ',') + '%';
+        document.getElementById('terPersen').textContent = persen.toFixed(2).replace('.', ',') + '%';
         document.getElementById('detailTotal').textContent = formatRupiah(total);
         document.getElementById('detailPajak').textContent = '- ' + formatRupiah(nominalPajak);
         document.getElementById('detailTHP').textContent = formatRupiah(thp);
