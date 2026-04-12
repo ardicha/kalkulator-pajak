@@ -102,7 +102,7 @@
                         </div>
                     </div>
                     <div style="display: flex; gap: 10px;">
-                        <button class="btn" style="flex: 3;" onclick="hitungPajak()">Hitung Pajak</button>
+                        <button class="btn" style="flex: 3;" onclick="hitungPajak()">Hitung Pajak Bulanan</button>
                         <button class="btn-reset" style="flex: 1;" onclick="reset()">Reset</button>
                     </div>
                 </div>
@@ -147,109 +147,113 @@
             </div>
         </div>
 
-<div id="akhir" style="display:none">
-    <div class="main-content">
-        <div class="left-column">
-            <div class="section">
-                <h2>Data Perhitungan Akhir</h2>
-                <div class="form-group">
-                    <label class="required">NPWP / NIK</label>
-                    <input type="text" id="npwpAkhir" placeholder="Masukkan NPWP/NIK">
-                </div>
-                <div class="form-group">
-                    <label class="required">Tahun Pajak</label>
-                    <input type="number" id="tahunAkhir" placeholder="Contoh: 2026">
-                </div>
-            </div>
+        <div id="akhir" style="display:none">
+            <div class="main-content">
+                <div class="left-column">
+                    <div class="section">
+                        <h2>Data Perhitungan Akhir</h2>
+                        <div class="form-group">
+                            <label class="required">NPWP / NIK</label>
+                            <input type="text" id="npwpAkhir" placeholder="Masukkan NPWP/NIK">
+                        </div>
+                        <div class="form-group">
+                            <label class="required">Tahun Pajak</label>
+                            <input type="number" id="tahunAkhir" placeholder="Contoh: 2026">
+                        </div>
+                    </div>
 
-            <div class="section">
-                <h2>Data Penghasilan Akhir (Desember)</h2>
-                <div class="form-group">
-                    <label class="required">Penghasilan 1</label>
-                    <div class="input-group">
-                        <span class="input-group-text">Rp</span>
-                        <input type="number" id="terakhir1">
+                    <div class="section">
+                        <h2>Data Penghasilan Akhir</h2>
+                        <div class="form-group">
+                            <label class="required">Penghasilan 1</label>
+                            <div class="input-group">
+                                <span class="input-group-text">Rp</span>
+                                <input type="number" id="terakhir1">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Penghasilan 2</label>
+                            <div class="input-group">
+                                <span class="input-group-text">Rp</span>
+                                <input type="number" id="terakhir2">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Penghasilan 3</label>
+                            <div class="input-group">
+                                <span class="input-group-text">Rp</span>
+                                <input type="number" id="terakhir3">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Penghasilan 4</label>
+                            <div class="input-group">
+                                <span class="input-group-text">Rp</span>
+                                <input type="number" id="terakhir4">
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label>Penghasilan 2</label>
-                    <div class="input-group">
-                        <span class="input-group-text">Rp</span>
-                        <input type="number" id="terakhir2">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Penghasilan 3</label>
-                    <div class="input-group">
-                        <span class="input-group-text">Rp</span>
-                        <input type="number" id="terakhir3">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Penghasilan 4</label>
-                    <div class="input-group">
-                        <span class="input-group-text">Rp</span>
-                        <input type="number" id="terakhir4">
-                    </div>
-                </div>
-            </div>
 
-            <div style="display: flex; gap: 10px; margin-bottom: 25px;">
-                <button class="btn" style="flex: 3;" onclick="hitungPajakAkhir()">Hitung Pajak Akhir</button>
-                <button class="btn-reset" style="flex: 1;" onclick="resetAkhir()">Reset</button>
+                    <div style="display: flex; gap: 10px; margin-bottom: 25px;">
+                        <button class="btn" style="flex: 3;" onclick="hitungPajakAkhir()">Hitung Pajak Akhir</button>
+                        <button class="btn-reset" style="flex: 1;" onclick="resetAkhir()">Reset</button>
+                    </div>
+                </div>
+
+                <div class="right-column">
+                    <div class="section" id="sectionRiwayat" style="display:none; margin-bottom: 25px;">
+                        <h2>Riwayat Penghasilan</h2>
+                        <div
+                            style="overflow-x: auto; background: #f8f9fa; border-radius: 8px; padding: 10px; border: 1px solid #dee2e6;">
+                            <table style="width: 100%; font-size: 0.8em; border-collapse: collapse;">
+                                <thead>
+                                    <tr style="background: #2c3e50; color: white;">
+                                        <th style="padding: 8px; border: 1px solid #ddd;">Bulan</th>
+                                        <th style="padding: 8px; border: 1px solid #ddd;">P1</th>
+                                        <th style="padding: 8px; border: 1px solid #ddd;">P2</th>
+                                        <th style="padding: 8px; border: 1px solid #ddd;">P3</th>
+                                        <th style="padding: 8px; border: 1px solid #ddd;">P4</th>
+                                        <th style="padding: 8px; border: 1px solid #ddd;">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tabelRiwayatBody" style="text-align: right; color: #444;">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <h2>Hasil Pajak Akhir</h2>
+                    <div class="result-card" style="margin-bottom: 15px;">
+                        <div class="result-label">Pajak Akhir Periode</div>
+                        <div class="result-value" id="akhirSelisih" style="font-size: 1.8em;">Rp 0</div>
+                    </div>
+
+                    <div class="detail-card">
+                        <h3>Rincian Perhitungan Akhir Periode</h3>
+                        <div class="detail-item"><span>Total Bruto Selama Bekerja</span><span id="akhirBruto">Rp
+                                0</span></div>
+                        <div class="detail-item"><span>Biaya Jabatan</span><span id="akhirBiayaJabatan">Rp 0</span>
+                        </div>
+                        <div class="detail-item"><span>Iuran Pensiun</span><span id="akhirIuranPensiun">Rp 0</span>
+                        </div>
+                        <div class="detail-item"><span>Total Pengurang</span><span id="akhirPengurang">Rp 0</span></div>
+                        <div class="detail-item"><span>Penghasilan Netto</span><span id="akhirNetto">Rp 0</span></div>
+                        <div class="detail-item"><span>PTKP</span><span id="akhirPTKP">Rp 0</span></div>
+                        <div class="detail-item"><span>PKP</span><span id="akhirPKP">Rp 0</span></div>
+                        <div class="rincianProgresif" id="rincianProgresif"></div>
+                        <div class="detail-item"><span>PPh 21 Terutang (Pasal 17)</span><span id="akhirPPh">Rp 0</span>
+                        </div>
+                        <div class="detail-item"><span>Pajak Telah Dipotong Sebelumnya</span><span class="negative"
+                                id="akhirPotong">Rp 0</span></div>
+                        <div class="detail-item total"><span>Pajak Akhir Periode</span><span id="akhirSelisihDetail"
+                                class="thp">Rp 0</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="right-column">
-            <div class="section" id="sectionRiwayat" style="display:none; margin-bottom: 25px;">
-                <h2>Riwayat Penghasilan (Jan - Nov)</h2>
-                <div style="overflow-x: auto; background: #f8f9fa; border-radius: 8px; padding: 10px; border: 1px solid #dee2e6;">
-                    <table style="width: 100%; font-size: 0.8em; border-collapse: collapse;">
-                        <thead>
-                            <tr style="background: #2c3e50; color: white;">
-                                <th style="padding: 8px; border: 1px solid #ddd;">Bulan</th>
-                                <th style="padding: 8px; border: 1px solid #ddd;">P1</th>
-                                <th style="padding: 8px; border: 1px solid #ddd;">P2</th>
-                                <th style="padding: 8px; border: 1px solid #ddd;">P3</th>
-                                <th style="padding: 8px; border: 1px solid #ddd;">P4</th>
-                                <th style="padding: 8px; border: 1px solid #ddd;">Total</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tabelRiwayatBody" style="text-align: right; color: #444;">
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <h2>Hasil Pajak Akhir</h2>
-            <div class="result-card" style="margin-bottom: 15px;">
-                <div class="result-label">Pajak Akhir Periode (Kurang/Lebih Bayar)</div>
-                <div class="result-value" id="akhirSelisih" style="font-size: 1.8em;">Rp 0</div>
-            </div>
-
-            <div class="detail-card">
-                <h3>Rincian Tahunan (Januari - Desember)</h3>
-                <div class="detail-item"><span>Total Bruto Setahun</span><span id="akhirBruto">Rp 0</span></div>
-                <div class="detail-item"><span>Biaya Jabatan</span><span id="akhirBiayaJabatan">Rp 0</span></div>
-                <div class="detail-item"><span>Iuran Pensiun</span><span id="akhirIuranPensiun">Rp 0</span></div>
-                <div class="detail-item"><span>Total Pengurang</span><span id="akhirPengurang">Rp 0</span></div>
-                <div class="detail-item"><span>Penghasilan Netto</span><span id="akhirNetto">Rp 0</span></div>
-                <div class="detail-item"><span>PTKP</span><span id="akhirPTKP">Rp 0</span></div>
-                <div class="detail-item"><span>PKP (Dibulatkan)</span><span id="akhirPKP">Rp 0</span></div>
-                <div id="rincianProgresif" style="display:none; font-size: 0.75em; color: #555; background: #f1f3f5; padding: 10px; border-radius: 8px; margin: 8px 0; line-height: 1.5; border-left: 4px solid #2c3e50;">
-    </div>
-                <div class="detail-item"><span>PPh 21 Terutang (Pasal 17)</span><span id="akhirPPh">Rp 0</span></div>
-                <div class="detail-item"><span>Pajak Telah Dipotong (Jan-Nov)</span><span class="negative" id="akhirPotong">Rp 0</span></div>
-                <div class="detail-item total">
-                    <span>Pajak Akhir Periode</span>
-                    <span id="akhirSelisihDetail" class="thp">Rp 0</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-    <script src="data.js"></script>
+        <script src="data.js"></script>
 </body>
 
 </html>
