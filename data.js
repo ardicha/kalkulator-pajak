@@ -419,7 +419,7 @@ function hitungPasal17(pkp) {
     const elRincian = document.getElementById('rincianProgresif');
 
     if (pkp <= 0) {
-        if(elRincian) elRincian.style.display = 'none';
+        if (elRincian) elRincian.style.display = 'none';
         return 0;
     }
 
@@ -430,14 +430,14 @@ function hitungPasal17(pkp) {
         lapis1 = pkp * 0.05;
         pajak = lapis1;
         rincianTeks += `• 5% x ${formatRupiah(pkp)} = <b>${formatRupiah(lapis1)}</b>`;
-    } 
+    }
     else if (pkp <= 250000000) {
         lapis1 = 60000000 * 0.05;
         lapis2 = (pkp - 60000000) * 0.15;
         pajak = lapis1 + lapis2;
         rincianTeks += `• 5% x ${formatRupiah(60000000)} = ${formatRupiah(lapis1)}<br>`;
         rincianTeks += `• 15% x ${formatRupiah(pkp - 60000000)} = <b>${formatRupiah(lapis2)}</b>`;
-    } 
+    }
     else if (pkp <= 500000000) {
         lapis1 = 60000000 * 0.05;
         lapis2 = 190000000 * 0.15;
@@ -446,7 +446,7 @@ function hitungPasal17(pkp) {
         rincianTeks += `• 5% x ${formatRupiah(60000000)} = ${formatRupiah(lapis1)}<br>`;
         rincianTeks += `• 15% x ${formatRupiah(190000000)} = ${formatRupiah(lapis2)}<br>`;
         rincianTeks += `• 25% x ${formatRupiah(pkp - 250000000)} = <b>${formatRupiah(lapis3)}</b>`;
-    } 
+    }
     else if (pkp <= 5000000000) {
         lapis1 = 60000000 * 0.05;
         lapis2 = 190000000 * 0.15;
@@ -457,7 +457,7 @@ function hitungPasal17(pkp) {
         rincianTeks += `• 15% x ... = ${formatRupiah(lapis2)}<br>`;
         rincianTeks += `• 25% x ... = ${formatRupiah(lapis3)}<br>`;
         rincianTeks += `• 30% x ${formatRupiah(pkp - 500000000)} = <b>${formatRupiah(lapis4)}</b>`;
-    } 
+    }
     else {
         lapis1 = 60000000 * 0.05;
         lapis2 = 190000000 * 0.15;
@@ -469,7 +469,7 @@ function hitungPasal17(pkp) {
         rincianTeks += `• 35% x ${formatRupiah(pkp - 5000000000)} = <b>${formatRupiah(lapis5)}</b>`;
     }
 
-    if(elRincian) {
+    if (elRincian) {
         elRincian.style.display = 'block';
         elRincian.innerHTML = `<strong>Rincian Perhitungan (Pasal 17):</strong><br>${rincianTeks}<hr style="border:0; border-top:1px solid #ccc; margin:5px 0;">Total PPh 21: <b>${formatRupiah(pajak)}</b>`;
     }
@@ -479,7 +479,7 @@ function hitungPasal17(pkp) {
 
 function resetAkhir() {
     const elRincian = document.getElementById('rincianProgresif');
-    if(elRincian) {
+    if (elRincian) {
         elRincian.style.display = 'none';
         elRincian.innerHTML = '';
     }
