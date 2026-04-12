@@ -262,6 +262,18 @@ body {
     border-bottom: 2px solid #2c3e50;
 }
 
+.rincianProgresif {
+    display:none; 
+    font-size: 0.75em; 
+    color: #555; 
+    background: #f1f3f5; 
+    padding: 10px; 
+    border-radius: 8px; 
+    margin: 8px 0; 
+    line-height: 1.5; 
+    border-left: 4px solid #2c3e50;
+}
+
 /* Perbaikan navigasi tombol di atas */
 .nav-tabs {
     display: flex;
