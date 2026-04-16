@@ -1,18 +1,14 @@
 <?php
+include 'koneksi.php'; // Menggunakan koneksi dari koneksi.php
 
-$conn = new mysqli("localhost","root","","db_pajak");
-
-if($conn->connect_error){
-    die("Koneksi gagal");
-}
-
-if($_SERVER["REQUEST_METHOD"] == "POST"){
-    // Ambil data dari POST
-    $npwp = $_POST['npwp'] ?? '';
-    $nama = $_POST['nama'] ?? '';
-    $ptkp = $_POST['ptkp'] ?? '';
-    $bulan = $_POST['bulan'] ?? '';
-    $tahun = $_POST['tahun'] ?? '';
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Escaping input untuk keamanan dasar
+    $npwp = mysqli_real_escape_string($conn, $_POST['npwp'] ?? '');
+    $nama = mysqli_real_escape_string($conn, $_POST['nama'] ?? '');
+    $ptkp = mysqli_real_escape_string($conn, $_POST['ptkp'] ?? '');
+    $bulan = mysqli_real_escape_string($conn, $_POST['bulan'] ?? '');
+    $tahun = mysqli_real_escape_string($conn, $_POST['tahun'] ?? '');
+    
     $penghasilan1 = $_POST['penghasilan1'] ?? 0;
     $penghasilan2 = $_POST['penghasilan2'] ?? 0;
     $penghasilan3 = $_POST['penghasilan3'] ?? 0;
@@ -24,7 +20,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $biayaJabatan = $_POST['biayaJabatan'] ?? 0;
     $iuranPensiun = $_POST['iuranPensiun'] ?? 0;
 
-    // Query dengan ON DUPLICATE KEY UPDATE
     $sql = "INSERT INTO pajak_bulanan 
             (npwp, nama, ptkp, bulan, tahun, penghasilan1, penghasilan2, penghasilan3, penghasilan4, bruto, kategori, tarif, pajak, biayaJabatan, iuranPensiun) 
             VALUES 
@@ -43,12 +38,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             biayaJabatan = VALUES(biayaJabatan),
             iuranPensiun = VALUES(iuranPensiun)";
 
-    if($conn->query($sql)){
-        echo "Data berhasil diperbarui dengan input terbaru";
+    if (mysqli_query($conn, $sql)) {
+        echo "Data berhasil diperbarui ke server teguhprasetyo.web.id";
     } else {
-        echo "Error: " . $conn->error;
+        echo "Error: " . mysqli_error($conn);
     }
 }
 
-$conn->close();
+mysqli_close($conn);
 ?>
