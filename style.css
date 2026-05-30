@@ -10,18 +10,18 @@ body {
     min-height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* Konten mulai dari atas */
-    padding: 0;             /* Hilangkan padding agar full */
+    align-items: flex-start; 
+    padding: 0;            
     margin: 0;
-    overflow-y: auto;       /* Izinkan scroll ke bawah */
+    overflow-y: auto;      
 }
 
 .container {
-    width: 100%;            /* Ubah dari 1300px ke 100% */
-    min-height: 100vh;      /* Minimal setinggi layar */
+    width: 100%;            
+    min-height: 100vh;      
     background: white;
-    border-radius: 0;       /* Hilangkan radius agar kotak sempurna */
-    box-shadow: none;       /* Opsional: hilangkan shadow agar lebih clean */
+    border-radius: 0;       
+    box-shadow: none;       
     display: flex;
     flex-direction: column;
 }
@@ -50,7 +50,7 @@ body {
     flex-wrap: wrap;
     padding: 30px;
     gap: 25px;
-    flex-grow: 1;           /* Memastikan konten mengisi ruang kosong */
+    flex-grow: 1;           
 }
 
 /* Kolom Kiri & Kanan */
@@ -284,7 +284,7 @@ body {
 }
 
 .nav-tabs .btn {
-    width: auto; /* Agar tombol tidak selebar container */
+    width: auto; 
     padding: 10px 25px;
     margin-top: 0;
 }
